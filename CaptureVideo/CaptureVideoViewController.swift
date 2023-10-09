@@ -2,7 +2,7 @@ import UIKit
 import AVFoundation
 import OSLog
 
-class ViewController: UIViewController {
+class CaptureVideoViewController: UIViewController {
     private let previewView: PreviewView = PreviewView()
 
     // MARK: - Session Management
@@ -12,8 +12,8 @@ class ViewController: UIViewController {
     private let videoDataOutput: AVCaptureVideoDataOutput = AVCaptureVideoDataOutput()
     private var videoDeviceInput: AVCaptureDeviceInput!
     // Communicate with the session and other session objects on this queue.
-    private let sessionQueue: DispatchQueue = DispatchQueue(label: "com.Capture.sessionQueue")
-    private let videoDataObjectsQueue: DispatchQueue = DispatchQueue(label: "com.Capture.videoDataObjectsQueue")
+    private let sessionQueue: DispatchQueue = DispatchQueue(label: "com.CaptureVideo.sessionQueue")
+    private let videoDataObjectsQueue: DispatchQueue = DispatchQueue(label: "com.CaptureVideo.videoDataObjectsQueue")
 
     // Call this on the session queue.
     private func configureSession() {
@@ -283,14 +283,14 @@ class ViewController: UIViewController {
 
 }
 
-extension ViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
+extension CaptureVideoViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
     func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
         // do what you need to do with captured frames
     }
 }
 
 // MARK: - Notifications and Observers
-extension ViewController {
+extension CaptureVideoViewController {
     private func addObservers() {
         let notificationCenter = NotificationCenter.default
 

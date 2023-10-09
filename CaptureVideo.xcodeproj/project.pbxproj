@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		5390654E2AD3FC3500B0ACB7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5390654D2AD3FC3500B0ACB7 /* AppDelegate.swift */; };
 		539065502AD3FC3500B0ACB7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5390654F2AD3FC3500B0ACB7 /* SceneDelegate.swift */; };
-		539065522AD3FC3500B0ACB7 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539065512AD3FC3500B0ACB7 /* ViewController.swift */; };
+		539065522AD3FC3500B0ACB7 /* CaptureVideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539065512AD3FC3500B0ACB7 /* CaptureVideoViewController.swift */; };
 		539065552AD3FC3500B0ACB7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 539065532AD3FC3500B0ACB7 /* Main.storyboard */; };
 		539065572AD3FC3700B0ACB7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 539065562AD3FC3700B0ACB7 /* Assets.xcassets */; };
 		5390655A2AD3FC3700B0ACB7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 539065582AD3FC3700B0ACB7 /* LaunchScreen.storyboard */; };
@@ -20,7 +20,7 @@
 		5390654A2AD3FC3400B0ACB7 /* CaptureVideo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CaptureVideo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5390654D2AD3FC3500B0ACB7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5390654F2AD3FC3500B0ACB7 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		539065512AD3FC3500B0ACB7 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		539065512AD3FC3500B0ACB7 /* CaptureVideoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureVideoViewController.swift; sourceTree = "<group>"; };
 		539065542AD3FC3500B0ACB7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		539065562AD3FC3700B0ACB7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		539065592AD3FC3700B0ACB7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -58,16 +58,24 @@
 		5390654C2AD3FC3400B0ACB7 /* CaptureVideo */ = {
 			isa = PBXGroup;
 			children = (
+				53E1335E2AD42A7A000E907E /* SupportingFiles */,
+				539065512AD3FC3500B0ACB7 /* CaptureVideoViewController.swift */,
+				539065612AD4162600B0ACB7 /* PreviewView.swift */,
+			);
+			path = CaptureVideo;
+			sourceTree = "<group>";
+		};
+		53E1335E2AD42A7A000E907E /* SupportingFiles */ = {
+			isa = PBXGroup;
+			children = (
 				5390654D2AD3FC3500B0ACB7 /* AppDelegate.swift */,
 				5390654F2AD3FC3500B0ACB7 /* SceneDelegate.swift */,
-				539065512AD3FC3500B0ACB7 /* ViewController.swift */,
-				539065612AD4162600B0ACB7 /* PreviewView.swift */,
 				539065532AD3FC3500B0ACB7 /* Main.storyboard */,
 				539065562AD3FC3700B0ACB7 /* Assets.xcassets */,
 				539065582AD3FC3700B0ACB7 /* LaunchScreen.storyboard */,
 				5390655B2AD3FC3700B0ACB7 /* Info.plist */,
 			);
-			path = CaptureVideo;
+			path = SupportingFiles;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -141,7 +149,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				539065522AD3FC3500B0ACB7 /* ViewController.swift in Sources */,
+				539065522AD3FC3500B0ACB7 /* CaptureVideoViewController.swift in Sources */,
 				539065622AD4162600B0ACB7 /* PreviewView.swift in Sources */,
 				5390654E2AD3FC3500B0ACB7 /* AppDelegate.swift in Sources */,
 				539065502AD3FC3500B0ACB7 /* SceneDelegate.swift in Sources */,
@@ -298,7 +306,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = FAJ4V9RHA6;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = CaptureVideo/Info.plist;
+				INFOPLIST_FILE = CaptureVideo/SupportingFiles/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "We will use your camera";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
@@ -328,7 +336,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = FAJ4V9RHA6;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = CaptureVideo/Info.plist;
+				INFOPLIST_FILE = CaptureVideo/SupportingFiles/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "We will use your camera";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
