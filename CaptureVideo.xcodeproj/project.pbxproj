@@ -14,7 +14,6 @@
 		539065572AD3FC3700B0ACB7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 539065562AD3FC3700B0ACB7 /* Assets.xcassets */; };
 		5390655A2AD3FC3700B0ACB7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 539065582AD3FC3700B0ACB7 /* LaunchScreen.storyboard */; };
 		539065622AD4162600B0ACB7 /* PreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539065612AD4162600B0ACB7 /* PreviewView.swift */; };
-		53E133602AD539F2000E907E /* TextRecognition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E1335F2AD539F2000E907E /* TextRecognition.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,7 +26,6 @@
 		539065592AD3FC3700B0ACB7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5390655B2AD3FC3700B0ACB7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		539065612AD4162600B0ACB7 /* PreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewView.swift; sourceTree = "<group>"; };
-		53E1335F2AD539F2000E907E /* TextRecognition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextRecognition.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,7 +60,6 @@
 			children = (
 				53E1335E2AD42A7A000E907E /* SupportingFiles */,
 				539065512AD3FC3500B0ACB7 /* CaptureVideoViewController.swift */,
-				53E1335F2AD539F2000E907E /* TextRecognition.swift */,
 				539065612AD4162600B0ACB7 /* PreviewView.swift */,
 			);
 			path = CaptureVideo;
@@ -153,7 +150,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				539065522AD3FC3500B0ACB7 /* CaptureVideoViewController.swift in Sources */,
-				53E133602AD539F2000E907E /* TextRecognition.swift in Sources */,
 				539065622AD4162600B0ACB7 /* PreviewView.swift in Sources */,
 				5390654E2AD3FC3500B0ACB7 /* AppDelegate.swift in Sources */,
 				539065502AD3FC3500B0ACB7 /* SceneDelegate.swift in Sources */,
