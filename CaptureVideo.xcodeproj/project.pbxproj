@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5356A9962C1FA1FB005415BE /* CaptureVideoDesiredValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5356A9952C1FA1F9005415BE /* CaptureVideoDesiredValues.swift */; };
+		5356A9982C1FA2B3005415BE /* DebugView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5356A9972C1FA2AE005415BE /* DebugView.swift */; };
 		5390654E2AD3FC3500B0ACB7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5390654D2AD3FC3500B0ACB7 /* AppDelegate.swift */; };
 		539065502AD3FC3500B0ACB7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5390654F2AD3FC3500B0ACB7 /* SceneDelegate.swift */; };
 		539065522AD3FC3500B0ACB7 /* CaptureVideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539065512AD3FC3500B0ACB7 /* CaptureVideoViewController.swift */; };
@@ -17,6 +19,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5356A9952C1FA1F9005415BE /* CaptureVideoDesiredValues.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureVideoDesiredValues.swift; sourceTree = "<group>"; };
+		5356A9972C1FA2AE005415BE /* DebugView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugView.swift; sourceTree = "<group>"; };
 		5390654A2AD3FC3400B0ACB7 /* CaptureVideo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CaptureVideo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5390654D2AD3FC3500B0ACB7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5390654F2AD3FC3500B0ACB7 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -58,9 +62,11 @@
 		5390654C2AD3FC3400B0ACB7 /* CaptureVideo */ = {
 			isa = PBXGroup;
 			children = (
-				53E1335E2AD42A7A000E907E /* SupportingFiles */,
+				5356A9972C1FA2AE005415BE /* DebugView.swift */,
+				5356A9952C1FA1F9005415BE /* CaptureVideoDesiredValues.swift */,
 				539065512AD3FC3500B0ACB7 /* CaptureVideoViewController.swift */,
 				539065612AD4162600B0ACB7 /* PreviewView.swift */,
+				53E1335E2AD42A7A000E907E /* SupportingFiles */,
 			);
 			path = CaptureVideo;
 			sourceTree = "<group>";
@@ -149,6 +155,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5356A9982C1FA2B3005415BE /* DebugView.swift in Sources */,
+				5356A9962C1FA1FB005415BE /* CaptureVideoDesiredValues.swift in Sources */,
 				539065522AD3FC3500B0ACB7 /* CaptureVideoViewController.swift in Sources */,
 				539065622AD4162600B0ACB7 /* PreviewView.swift in Sources */,
 				5390654E2AD3FC3500B0ACB7 /* AppDelegate.swift in Sources */,
@@ -304,7 +312,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = FAJ4V9RHA6;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = CaptureVideo/SupportingFiles/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "We will use your camera";
@@ -334,7 +342,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = FAJ4V9RHA6;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = CaptureVideo/SupportingFiles/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "We will use your camera";

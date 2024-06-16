@@ -3,7 +3,10 @@ import AVFoundation
 import OSLog
 
 class CaptureVideoViewController: UIViewController {
+
+    // MARK: - UI
     private let previewView: PreviewView = PreviewView()
+    private var debugView: DebugView!
 
     // MARK: - Session Management
     private var setupResult: SessionSetupResult = .success
@@ -28,7 +31,7 @@ class CaptureVideoViewController: UIViewController {
         // Ensure that the configuration is committed, whether the configuration succeeds or an error occurs.
         defer { session.commitConfiguration() }
 
-        session.sessionPreset = .hd1280x720
+        session.sessionPreset = CaptureVideoDesiredValues.preset
 
         // Attempt to get the default video device, prioritizing the back wide-angle camera.
         let defaultVideoDevice: AVCaptureDevice?
@@ -56,8 +59,8 @@ class CaptureVideoViewController: UIViewController {
             if session.canAddInput(videoDeviceInput) {
                 session.addInput(videoDeviceInput)
                 
-                // Desired frame rate - 60FPS
-                let targetFrameRate = 60
+                // Desired frame rate
+                let targetFrameRate = CaptureVideoDesiredValues.fps
                 // Disable smooth auto-focus if supported by the video device.
                 if videoDevice.isSmoothAutoFocusSupported {
                     try videoDevice.lockForConfiguration()
@@ -68,42 +71,60 @@ class CaptureVideoViewController: UIViewController {
                 // Set the desired frame rate and configure the active format.
                 try videoDevice.lockForConfiguration()
 
-                // Select the initial format as a fallback.
-                var formatToSet: AVCaptureDevice.Format = videoDeviceInput.device.formats[0]
-                
                 // Iterate through available formats to find the one matching the desired frame rate and resolution.
-                for format in videoDeviceInput.device.formats.reversed() {
-                    let ranges = format.videoSupportedFrameRateRanges
-                    let frameRates = ranges[0]
+                let suitableFormat = videoDeviceInput.device.formats
+                    .filter { format in
+                        // Skip formats with no frame rate ranges.
+                        guard let frameRates = format.videoSupportedFrameRateRanges.first else { return false }
 
-                    // Check if the format matches the desirable frame rate and resolution (1280x720).
-                    if frameRates.maxFrameRate == Double(targetFrameRate),
-                       format.formatDescription.dimensions.width == 1280,
-                       format.formatDescription.dimensions.height == 720
-                    {
-                        // Set the format to the matching one.
-                        formatToSet = format
+                        // Check if the format meets or exceeds the desired frame rate and resolution.
+                        let maxRateCondition = frameRates.maxFrameRate >= Double(targetFrameRate)
+                        let widthCondition = format.formatDescription.dimensions.width == CaptureVideoDesiredValues.width
+                        let heightCondition = format.formatDescription.dimensions.height == CaptureVideoDesiredValues.height
+                        let dimensionsCondition = widthCondition && heightCondition
 
-                        // Log the chosen active format.
-                        os_log("Video device active format was chosen: %{public}@", type: .info, format.description)
-
-                        // Exit the loop as the desired format is found.
-                        break
+                        return maxRateCondition && dimensionsCondition
                     }
+                    .max { lhs, rhs in
+                        guard let lhsRange = lhs.videoSupportedFrameRateRanges.first,
+                              let rhsRange = rhs.videoSupportedFrameRateRanges.first
+                        else { return false }
+
+                        let maxRateCondition = lhsRange.maxFrameRate > rhsRange.maxFrameRate
+                        let widthCondition = lhs.formatDescription.dimensions.width > rhs.formatDescription.dimensions.width
+                        let heightCondition = lhs.formatDescription.dimensions.height > rhs.formatDescription.dimensions.height
+                        let dimensionsCondition = widthCondition && heightCondition
+
+                        return maxRateCondition && dimensionsCondition
+                    }
+
+                guard let suitableFormat else {
+                    setupResult = .configurationFailed
+                    os_log("Could not get suitable video device format", type: .info)
+                    return
                 }
+
+                // Set the format to the matching one.
+                let formatToSet: AVCaptureDevice.Format = suitableFormat
+                os_log("Suitable format: %{public}@", type: .info, suitableFormat)
+
                 // Apply the selected format to the video device.
                 videoDevice.activeFormat = formatToSet
+                
+                // Log the chosen active format.
+                os_log("Video device active format was chosen: %{public}@", type: .info, formatToSet.description)
 
-                // Set the desired frame rate(60FPS).
+                // Set the desired frame rate.
                 let timescale = CMTimeScale(targetFrameRate)
-                // Ensure activeFormat supports 60 frames per second before setting frame duration.
-                // This place would crash if you didn't set activeFormat to one that can handle 60 frames per second.
+                // Ensure activeFormat supports desired frames per second before setting frame duration.
+                // This place would crash if you didn't set activeFormat to one that can't handle desired frames per second.
                 if videoDevice.activeFormat.videoSupportedFrameRateRanges[0].maxFrameRate >= Double(targetFrameRate) {
                     videoDevice.activeVideoMinFrameDuration = CMTime(value: 1, timescale: timescale)
                     videoDevice.activeVideoMaxFrameDuration = CMTime(value: 1, timescale: timescale)
                 } else {
-                    // Log a warning if the selected format doesn't support 60FPS.
-                    os_log("Selected active format may not support the desired frame rate of %{public}d FPS.", type: .error, targetFrameRate)
+                    logAvailableFormats(for: videoDeviceInput)
+                    // Log a warning if the selected format doesn't support desired frames per second.
+                    os_log("Selected active format may not support the desired frame rate of %{public}d FPS. Available %{public}@ FPS.", type: .error, targetFrameRate, "\(videoDevice.activeFormat.videoSupportedFrameRateRanges)")
                 }
 
                 // Unlock the video device configuration.
@@ -155,6 +176,22 @@ class CaptureVideoViewController: UIViewController {
         }
     }
 
+    private func logAvailableFormats(for videoDeviceInput: AVCaptureDeviceInput) {
+        // Transform formats into a readable string representation
+        let formatsDescriptions = videoDeviceInput.device.formats.map { format -> String in
+            // Collect max frame rates into a single string
+            let frameRates = format.videoSupportedFrameRateRanges.map { "\($0.maxFrameRate)" }.joined(separator: ", ")
+            // Get the dimensions
+            let width = format.formatDescription.dimensions.width
+            let height = format.formatDescription.dimensions.height
+            // Construct the format description string
+            return "Frame Rates: [\(frameRates)], Width: \(width), Height: \(height)"
+        }.joined(separator: "\n")
+
+        // Log the constructed formats description
+        os_log("Available formats: %{public}@", type: .info, formatsDescriptions)
+    }
+
 
     // MARK: - View Controller Life Cycle
     override func viewDidLoad() {
@@ -172,6 +209,8 @@ class CaptureVideoViewController: UIViewController {
             previewView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             previewView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
+
+        addDebugView()
 
         // Initialize and configure the video preview view.
         previewView.session = session
@@ -281,11 +320,31 @@ class CaptureVideoViewController: UIViewController {
         case configurationFailed
     }
 
+    private func addDebugView() {
+        debugView = DebugView(preset: CaptureVideoDesiredValues.presetDescription, rate: "0")
+
+        // Add your frame rate label as a subview
+        view.addSubview(debugView)
+
+        // Configure Auto Layout constraints
+        debugView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            debugView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            debugView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            debugView.leadingAnchor.constraint(equalTo: view.leadingAnchor)
+        ])
+    }
 }
 
 extension CaptureVideoViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
     func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
         // do what you need to do with captured frames
+
+        debugFrameRate()
+    }
+
+    private func debugFrameRate() {
+        debugView.updateFPSValue()
     }
 }
 
